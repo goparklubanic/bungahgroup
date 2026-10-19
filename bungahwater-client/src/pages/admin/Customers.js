@@ -65,6 +65,7 @@ function AdminCustomers() {
       <button onClick={() => navigate('/bw')} className="btn btn-secondary">
         Back to Dashboard
       </button>
+      <div>{API_URL}</div>
 
       <form onSubmit={handleSubmit} className="form-card">
         <h3>{isEditing ? 'Edit Customer' : 'Add Customer'}</h3>
