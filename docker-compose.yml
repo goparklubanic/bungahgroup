@@ -1,0 +1,35 @@
+services:
+  bwapi:
+    build:
+      context: ./bungahwater-api
+    image: bungahwater-api:latest
+    container_name: bwapi
+    restart: unless-stopped
+    hostname: bungep.numedia.biz.id
+    environment:
+      PORT: "3001"
+      DB_PATH: ./db/bungahwater.sqlite
+    volumes:
+      - ./bungahwater-api/db:/app/db:Z
+    ports:
+      - "3201:3001"
+    networks:
+      - numedia-net
+
+  bwweb:
+    build:
+      context: ./bungahwater-client
+    image: bungahwater-client:latest
+    container_name: bwweb
+    restart: unless-stopped
+    hostname: bungah.numedia.biz.id
+    depends_on:
+      - bwapi
+    ports:
+      - "3200:3000"
+    networks:
+      - numedia-net
+
+networks:
+  numedia-net:
+    external: true
